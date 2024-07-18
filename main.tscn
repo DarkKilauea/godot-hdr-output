@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://imv8267ashna"]
+
+[ext_resource type="PackedScene" uid="uid://c5uq118s710yn" path="res://sponza/glTF/Sponza.gltf" id="1_0fob3"]
+[ext_resource type="LightmapGIData" uid="uid://dg1t5nmyp1k82" path="res://main.lmbake" id="2_8rbkh"]
+[ext_resource type="Script" path="res://hud.gd" id="3_5pqer"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc24f"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_egiyw"]
+sky_material = SubResource("ProceduralSkyMaterial_mc24f")
+
+[sub_resource type="Environment" id="Environment_0vgk1"]
+background_mode = 2
+sky = SubResource("Sky_egiyw")
+tonemap_mode = 3
+tonemap_exposure = 3.0
+ssr_enabled = true
+ssao_enabled = true
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.498097, 0.0435779, 0, 0.0871558, 0.996195, -0.5, 0.86273, -0.0754791, 0, 0, 0)
+light_energy = 6.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0vgk1")
+
+[node name="Sponza" parent="." instance=ExtResource("1_0fob3")]
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+generate_probes_subdiv = 3
+light_data = ExtResource("2_8rbkh")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.0113174, -0.00694551, 0.999912, 0, 0.999976, 0.00694595, -0.999936, 7.86102e-05, -0.0113171, 9, 1.5, -1)
+far = 128.0
+
+[node name="HUD" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("3_5pqer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+layout_mode = 2
+
+[node name="EnableHDRButton" type="CheckButton" parent="HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enable HDR"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+layout_mode = 2
+
+[node name="MaxLuminanceLabel" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Max Luminance"
+
+[node name="MaxLuminanceValue" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "xxxx"
+horizontal_alignment = 2
+
+[node name="MaxLuminanceSlider" type="HSlider" parent="HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2000.0
+value = 1000.0
+
+[connection signal="toggled" from="HUD/VBoxContainer/EnableHDRButton" to="HUD" method="_on_enable_hdr_button_toggled"]
+[connection signal="value_changed" from="HUD/VBoxContainer/MaxLuminanceSlider" to="HUD" method="_on_max_luminance_slider_value_changed"]
+
+[editable path="Sponza"]
