@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://gywmqtpy1jlq"]
+
+[ext_resource type="Script" path="res://slider_control.gd" id="1_yy5xk"]
+
+[node name="SliderControl" type="VBoxContainer"]
+size_flags_vertical = 4
+script = ExtResource("1_yy5xk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TitleLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Title"
+
+[node name="ValueLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "xxxx"
+horizontal_alignment = 2
+
+[node name="ValueSlider" type="HSlider" parent="."]
+layout_mode = 2
+
+[connection signal="value_changed" from="ValueSlider" to="." method="_on_value_slider_value_changed"]
