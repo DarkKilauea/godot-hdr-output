@@ -2,12 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://c5uq118s710yn" path="res://sponza/glTF/Sponza.gltf" id="1_0fob3"]
 [ext_resource type="LightmapGIData" uid="uid://dg1t5nmyp1k82" path="res://main.lmbake" id="2_8rbkh"]
-[ext_resource type="Script" path="res://hud.gd" id="3_5pqer"]
+[ext_resource type="Script" uid="uid://bv2vy7fy1p4xs" path="res://hud.gd" id="3_5pqer"]
 [ext_resource type="PackedScene" uid="uid://gywmqtpy1jlq" path="res://slider_control.tscn" id="4_gln4f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc24f"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
 [sub_resource type="Sky" id="Sky_egiyw"]
 sky_material = SubResource("ProceduralSkyMaterial_mc24f")
@@ -15,7 +13,6 @@ sky_material = SubResource("ProceduralSkyMaterial_mc24f")
 [sub_resource type="Environment" id="Environment_0vgk1"]
 background_mode = 2
 sky = SubResource("Sky_egiyw")
-tonemap_mode = 3
 tonemap_exposure = 3.0
 ssr_enabled = true
 ssao_enabled = true
