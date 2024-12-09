@@ -13,7 +13,9 @@ sky_material = SubResource("ProceduralSkyMaterial_mc24f")
 [sub_resource type="Environment" id="Environment_0vgk1"]
 background_mode = 2
 sky = SubResource("Sky_egiyw")
+tonemap_mode = 1
 tonemap_exposure = 3.0
+tonemap_white = 0.5
 ssr_enabled = true
 ssao_enabled = true
 glow_enabled = true
@@ -60,20 +62,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Enable HDR"
 
-[node name="3dMaxLuminanceSlider" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
+[node name="RefLuminanceSlider" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 2000.0
 step = 0.0
-title = "Max Luminance (3D)"
-value = 1000.0
-
-[node name="2dMaxLuminanceSlider" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 2000.0
-step = 0.0
-title = "Max Luminance (2D)"
+title = "Reference Luminance"
 value = 200.0
 
 [node name="BrightnessSliderControl" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
@@ -93,8 +87,7 @@ title = "Contrast"
 value = 1.0
 
 [connection signal="toggled" from="HUD/VBoxContainer/EnableHDRButton" to="HUD" method="_on_enable_hdr_button_toggled"]
-[connection signal="value_changed" from="HUD/VBoxContainer/3dMaxLuminanceSlider" to="HUD" method="_on_3d_max_luminance_slider_value_changed"]
-[connection signal="value_changed" from="HUD/VBoxContainer/2dMaxLuminanceSlider" to="HUD" method="_on_2d_max_luminance_slider_value_changed"]
+[connection signal="value_changed" from="HUD/VBoxContainer/RefLuminanceSlider" to="HUD" method="_on_reference_luminance_slider_value_changed"]
 [connection signal="value_changed" from="HUD/VBoxContainer/BrightnessSliderControl" to="HUD" method="_on_brightness_slider_control_value_changed"]
 [connection signal="value_changed" from="HUD/VBoxContainer/ContrastSliderControl" to="HUD" method="_on_contrast_slider_control_value_changed"]
 

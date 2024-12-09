@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [display]
 
 window/hdr/enabled=true
-window/hdr/max_luminance=200.0
 
 [rendering]
 
