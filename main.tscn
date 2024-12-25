@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://imv8267ashna"]
+[gd_scene load_steps=9 format=3 uid="uid://imv8267ashna"]
 
 [ext_resource type="PackedScene" uid="uid://c5uq118s710yn" path="res://sponza/glTF/Sponza.gltf" id="1_0fob3"]
 [ext_resource type="LightmapGIData" uid="uid://dg1t5nmyp1k82" path="res://main.lmbake" id="2_8rbkh"]
 [ext_resource type="Script" uid="uid://bv2vy7fy1p4xs" path="res://hud.gd" id="3_5pqer"]
 [ext_resource type="PackedScene" uid="uid://gywmqtpy1jlq" path="res://slider_control.tscn" id="4_gln4f"]
+[ext_resource type="PackedScene" uid="uid://b1nlow5nchqav" path="res://hdr_controls.tscn" id="4_r4cwe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mc24f"]
 
@@ -57,18 +58,8 @@ script = ExtResource("3_5pqer")
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
 layout_mode = 2
 
-[node name="EnableHDRButton" type="CheckButton" parent="HUD/VBoxContainer"]
-unique_name_in_owner = true
+[node name="HDRControls" parent="HUD/VBoxContainer" instance=ExtResource("4_r4cwe")]
 layout_mode = 2
-text = "Enable HDR"
-
-[node name="RefLuminanceSlider" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 2000.0
-step = 0.0
-title = "Reference Luminance"
-value = 200.0
 
 [node name="BrightnessSliderControl" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
 unique_name_in_owner = true
@@ -86,8 +77,6 @@ step = 0.01
 title = "Contrast"
 value = 1.0
 
-[connection signal="toggled" from="HUD/VBoxContainer/EnableHDRButton" to="HUD" method="_on_enable_hdr_button_toggled"]
-[connection signal="value_changed" from="HUD/VBoxContainer/RefLuminanceSlider" to="HUD" method="_on_reference_luminance_slider_value_changed"]
 [connection signal="value_changed" from="HUD/VBoxContainer/BrightnessSliderControl" to="HUD" method="_on_brightness_slider_control_value_changed"]
 [connection signal="value_changed" from="HUD/VBoxContainer/ContrastSliderControl" to="HUD" method="_on_contrast_slider_control_value_changed"]
 
