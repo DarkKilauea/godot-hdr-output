@@ -57,9 +57,9 @@ func _draw() -> void:
 		Vector2(blue_x * multiplier, size.y - blue_y * multiplier)
 	]);
 	var colors := PackedColorArray([
-		xyYToRec709(Vector2(red_x, red_y)),
-		xyYToRec709(Vector2(green_x, green_y)),
-		xyYToRec709(Vector2(blue_x, blue_y)),
+		Color.RED,
+		Color.GREEN,
+		Color.BLUE
 	]);
 	var uvs := PackedVector2Array([
 		Vector2(red_x, red_y),
@@ -68,18 +68,3 @@ func _draw() -> void:
 	]);
 	
 	draw_polygon(points, colors, uvs);
-
-
-func xyYToRec709(xy: Vector2, Y: float = 1.0) -> Color:
-	# https://github.com/ampas/aces-dev/blob/v1.0.3/transforms/ctl/README-MATRIX.md
-	const XYZtoRGB := Basis(
-		Vector3(3.2409699419, -0.9692436363, 0.0556300797),
-		Vector3(-1.5373831776, 1.8759675015, -0.2039769589),
-		Vector3(-0.4986107603, 0.0415550574, 1.0569715142)
-	);
-	
-	var XYZ: Vector3 = Y * Vector3(xy.x / xy.y, 1.0, (1.0 - xy.x - xy.y) / xy.y);
-	var RGB: Vector3 = XYZtoRGB * XYZ;
-	var maxChannel: float = maxf(RGB.x, maxf(RGB.y, RGB.z));
-	var final: Vector3 = RGB / maxf(maxChannel, 1.0);
-	return Color(final.x, final.y, final.z);

@@ -1,8 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://7jqsxqrtbpqk"]
+[gd_scene load_steps=6 format=3 uid="uid://7jqsxqrtbpqk"]
 
 [ext_resource type="PackedScene" uid="uid://d258723krk1q5" path="res://gradient.tscn" id="1_31twp"]
 [ext_resource type="PackedScene" uid="uid://5b1vylweoge3" path="res://color_space_view.tscn" id="1_r0yr5"]
 [ext_resource type="PackedScene" uid="uid://b1nlow5nchqav" path="res://hdr_controls.tscn" id="3_qm0vo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hse5h"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phouc"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.145098, 0.145098, 0.145098, 0.501961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="HdrTester" type="PanelContainer"]
 anchors_preset = 15
@@ -10,6 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hse5h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -93,5 +112,9 @@ horizontal_alignment = 1
 layout_mode = 2
 alignment = 2
 
-[node name="HDRControls" parent="VBoxContainer/Controls" instance=ExtResource("3_qm0vo")]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Controls"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_phouc")
+
+[node name="HDRControls" parent="VBoxContainer/Controls/PanelContainer" instance=ExtResource("3_qm0vo")]
 layout_mode = 2

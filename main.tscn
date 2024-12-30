@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://imv8267ashna"]
+[gd_scene load_steps=10 format=3 uid="uid://imv8267ashna"]
 
 [ext_resource type="PackedScene" uid="uid://c5uq118s710yn" path="res://sponza/glTF/Sponza.gltf" id="1_0fob3"]
 [ext_resource type="LightmapGIData" uid="uid://dg1t5nmyp1k82" path="res://main.lmbake" id="2_8rbkh"]
@@ -15,12 +15,21 @@ sky_material = SubResource("ProceduralSkyMaterial_mc24f")
 background_mode = 2
 sky = SubResource("Sky_egiyw")
 tonemap_mode = 1
-tonemap_exposure = 3.0
 tonemap_white = 0.5
 ssr_enabled = true
 ssao_enabled = true
-glow_enabled = true
 adjustment_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.145098, 0.145098, 0.145098, 0.501961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="Main" type="Node3D"]
 
@@ -43,25 +52,31 @@ light_data = ExtResource("2_8rbkh")
 transform = Transform3D(-0.0113174, -0.00694551, 0.999912, 0, 0.999976, 0.00694595, -0.999936, 7.86102e-05, -0.0113171, 9, 1.5, -1)
 far = 128.0
 
-[node name="HUD" type="PanelContainer" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -192.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HUD" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
 script = ExtResource("3_5pqer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HUD"]
 layout_mode = 2
 
-[node name="HDRControls" parent="HUD/VBoxContainer" instance=ExtResource("4_r4cwe")]
+[node name="HDRControls" parent="MarginContainer/HUD/VBoxContainer" instance=ExtResource("4_r4cwe")]
 layout_mode = 2
 
-[node name="BrightnessSliderControl" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
+[node name="BrightnessSliderControl" parent="MarginContainer/HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 8.0
@@ -69,7 +84,7 @@ step = 0.01
 title = "Brightness"
 value = 1.0
 
-[node name="ContrastSliderControl" parent="HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
+[node name="ContrastSliderControl" parent="MarginContainer/HUD/VBoxContainer" instance=ExtResource("4_gln4f")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 8.0
@@ -77,7 +92,7 @@ step = 0.01
 title = "Contrast"
 value = 1.0
 
-[connection signal="value_changed" from="HUD/VBoxContainer/BrightnessSliderControl" to="HUD" method="_on_brightness_slider_control_value_changed"]
-[connection signal="value_changed" from="HUD/VBoxContainer/ContrastSliderControl" to="HUD" method="_on_contrast_slider_control_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HUD/VBoxContainer/BrightnessSliderControl" to="MarginContainer/HUD" method="_on_brightness_slider_control_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HUD/VBoxContainer/ContrastSliderControl" to="MarginContainer/HUD" method="_on_contrast_slider_control_value_changed"]
 
 [editable path="Sponza"]

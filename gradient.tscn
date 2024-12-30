@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://d258723krk1q5"]
+[gd_scene load_steps=4 format=3 uid="uid://d258723krk1q5"]
 
-[ext_resource type="Script" path="res://gradient.gd" id="1_dks0a"]
+[ext_resource type="Script" uid="uid://dx5xcongc4lhc" path="res://gradient.gd" id="1_dks0a"]
+
+[sub_resource type="Shader" id="Shader_sx002"]
+code = "shader_type canvas_item;
+
+void fragment() {
+	// Draw a perceptual gradient rather than a linear gradient.
+	COLOR = vec4(pow(abs(COLOR.rgb), vec3(2.2)), COLOR.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2aujw"]
+shader = SubResource("Shader_sx002")
 
 [node name="Gradient" type="Control"]
+material = SubResource("ShaderMaterial_2aujw")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
