@@ -9,6 +9,12 @@ extends Control
 func _ready() -> void:
 	_enable_hdr_button.set_pressed_no_signal(DisplayServer.window_get_hdr_output_enabled());
 	_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_reference_luminance();
+	
+	# Populate scene menu
+	for i in range(SceneSwitcher.scene_count()):
+		_scene_choice.add_item(SceneSwitcher.name_for_index(i), i);
+	
+	# Select the scene we are currently on
 	_scene_choice.selected = SceneSwitcher.index_for_current_scene();
 
 
