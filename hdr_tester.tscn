@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://7jqsxqrtbpqk"]
+[gd_scene load_steps=7 format=3 uid="uid://7jqsxqrtbpqk"]
 
 [ext_resource type="PackedScene" uid="uid://d258723krk1q5" path="res://gradient.tscn" id="1_31twp"]
 [ext_resource type="PackedScene" uid="uid://5b1vylweoge3" path="res://color_space_view.tscn" id="1_r0yr5"]
@@ -10,6 +10,14 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shfw4"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.12549, 0.12549, 0.12549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phouc"]
 content_margin_left = 8.0
@@ -30,71 +38,83 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hse5h")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Rec709Row" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Rec709Row" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GradientBox" type="VBoxContainer" parent="VBoxContainer/Rec709Row"]
+[node name="GradientBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Rec709Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Gradient" parent="VBoxContainer/Rec709Row/GradientBox" instance=ExtResource("1_31twp")]
+[node name="Gradient" parent="HBoxContainer/VBoxContainer/Rec709Row/GradientBox" instance=ExtResource("1_31twp")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Rec709Row/GradientBox"]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Rec709Row/GradientBox"]
 layout_mode = 2
 text = "SDR Gradient [0, 1]"
 horizontal_alignment = 1
 
-[node name="ColorSpaceBox" type="VBoxContainer" parent="VBoxContainer/Rec709Row"]
+[node name="ColorSpaceBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Rec709Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer/Rec709Row/ColorSpaceBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/Rec709Row/ColorSpaceBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorSpaceView" parent="VBoxContainer/Rec709Row/ColorSpaceBox/AspectRatioContainer" instance=ExtResource("1_r0yr5")]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Rec709Row/ColorSpaceBox/AspectRatioContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shfw4")
+
+[node name="ColorSpaceView" parent="HBoxContainer/VBoxContainer/Rec709Row/ColorSpaceBox/AspectRatioContainer/PanelContainer" instance=ExtResource("1_r0yr5")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Rec709Row/ColorSpaceBox"]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Rec709Row/ColorSpaceBox"]
 layout_mode = 2
 text = "Rec 709"
 horizontal_alignment = 1
 
-[node name="Rec2020Row2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Rec2020Row2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GradientBox" type="VBoxContainer" parent="VBoxContainer/Rec2020Row2"]
+[node name="GradientBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Rec2020Row2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Gradient" parent="VBoxContainer/Rec2020Row2/GradientBox" instance=ExtResource("1_31twp")]
+[node name="Gradient" parent="HBoxContainer/VBoxContainer/Rec2020Row2/GradientBox" instance=ExtResource("1_31twp")]
 layout_mode = 2
 max_value = 3.0
 
-[node name="Label" type="Label" parent="VBoxContainer/Rec2020Row2/GradientBox"]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Rec2020Row2/GradientBox"]
 layout_mode = 2
 text = "HDR Gradient [0, 9]"
 horizontal_alignment = 1
 
-[node name="ColorSpaceBox" type="VBoxContainer" parent="VBoxContainer/Rec2020Row2"]
+[node name="ColorSpaceBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Rec2020Row2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer/Rec2020Row2/ColorSpaceBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/Rec2020Row2/ColorSpaceBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorSpaceView" parent="VBoxContainer/Rec2020Row2/ColorSpaceBox/AspectRatioContainer" instance=ExtResource("1_r0yr5")]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/Rec2020Row2/ColorSpaceBox/AspectRatioContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shfw4")
+
+[node name="ColorSpaceView" parent="HBoxContainer/VBoxContainer/Rec2020Row2/ColorSpaceBox/AspectRatioContainer/PanelContainer" instance=ExtResource("1_r0yr5")]
 layout_mode = 2
 red_x = 0.708
 red_y = 0.292
@@ -103,18 +123,16 @@ green_y = 0.797
 blue_x = 0.131
 blue_y = 0.046
 
-[node name="Label" type="Label" parent="VBoxContainer/Rec2020Row2/ColorSpaceBox"]
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Rec2020Row2/ColorSpaceBox"]
 layout_mode = 2
 text = "Rec 2020"
 horizontal_alignment = 1
 
-[node name="Controls" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
-alignment = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Controls"]
-layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_phouc")
 
-[node name="HDRControls" parent="VBoxContainer/Controls/PanelContainer" instance=ExtResource("3_qm0vo")]
+[node name="HDRControls" parent="PanelContainer" instance=ExtResource("3_qm0vo")]
 layout_mode = 2
