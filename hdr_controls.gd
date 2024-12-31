@@ -9,6 +9,7 @@ extends Control
 func _ready() -> void:
 	_enable_hdr_button.set_pressed_no_signal(DisplayServer.window_get_hdr_output_enabled());
 	_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_reference_luminance();
+	_reference_luminance_slider.step = 1.0;
 	
 	# Populate scene menu
 	for i in range(SceneSwitcher.scene_count()):
