@@ -1,8 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://gywmqtpy1jlq"]
 
-[ext_resource type="Script" path="res://slider_control.gd" id="1_yy5xk"]
+[ext_resource type="Script" uid="uid://b42i1dnpykw5l" path="res://slider_control.gd" id="1_yy5xk"]
 
 [node name="SliderControl" type="VBoxContainer"]
+offset_right = 206.0
+offset_bottom = 43.0
 size_flags_vertical = 4
 script = ExtResource("1_yy5xk")
 
@@ -17,7 +19,7 @@ text = "Title"
 [node name="ValueLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "xxxx"
+text = "0.00"
 horizontal_alignment = 2
 
 [node name="ValueSlider" type="HSlider" parent="."]

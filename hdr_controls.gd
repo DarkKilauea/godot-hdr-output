@@ -16,6 +16,9 @@ func _ready() -> void:
 	
 	# Select the scene we are currently on
 	_scene_choice.selected = SceneSwitcher.index_for_current_scene();
+	
+	# Initialize focus so gamepads and keyboard nav work
+	_enable_hdr_button.grab_focus();
 
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:

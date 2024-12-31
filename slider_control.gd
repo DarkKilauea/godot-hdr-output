@@ -61,7 +61,7 @@ signal value_changed(value);
 		
 		_value = v;
 		if value_label:
-			value_label.text = "%f" % v;
+			value_label.text = "%.2f" % v;
 		if value_slider:
 			value_slider.set_value_no_signal(v);
 	get():
@@ -91,6 +91,6 @@ func _ready() -> void:
 
 func _on_value_slider_value_changed(v: float) -> void:
 	_value = v;
-	value_label.text = "%f" % v;
+	value_label.text = "%.2f" % v;
 	
 	value_changed.emit(v);
