@@ -32,10 +32,10 @@ func _draw() -> void:
 		Color(min_value, min_value, min_value)
 	]);
 	var uvs := PackedVector2Array([
-		Vector2(0, 0),
-		Vector2(1, 0),
-		Vector2(1, 1),
-		Vector2(0, 1)
+		Vector2(min_value, min_value),
+		Vector2(max_value, min_value),
+		Vector2(max_value, max_value),
+		Vector2(min_value, max_value)
 	]);
 	
 	draw_polygon(points, colors, uvs);

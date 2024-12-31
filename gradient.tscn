@@ -7,7 +7,8 @@ code = "shader_type canvas_item;
 
 void fragment() {
 	// Draw a perceptual gradient rather than a linear gradient.
-	COLOR = vec4(pow(abs(COLOR.rgb), vec3(2.2)), COLOR.a);
+	float value = pow(abs(UV.x), 2.2);
+	COLOR = vec4(value, value, value, 1.0);
 }
 "
 
