@@ -1,10 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1nlow5nchqav"]
+[gd_scene load_steps=4 format=3 uid="uid://b1nlow5nchqav"]
 
 [ext_resource type="Script" uid="uid://ct5mieol7eeyv" path="res://hdr_controls.gd" id="1_pfloc"]
 [ext_resource type="PackedScene" uid="uid://gywmqtpy1jlq" path="res://slider_control.tscn" id="1_usl2s"]
+[ext_resource type="PackedScene" uid="uid://defsoyqoq70rl" path="res://info_label.tscn" id="2_4kv2r"]
 
 [node name="HDRControls" type="VBoxContainer"]
 script = ExtResource("1_pfloc")
+
+[node name="HDRAvailable" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "HDR Supported:"
+value = "false"
+
+[node name="MinLuminance" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Min Luminance"
+value = "0.0"
+
+[node name="MaxLuminance" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Max Luminance"
+value = "0.0"
+
+[node name="MaxFullLuminance" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Max Full Luminance"
+value = "0.0"
+
+[node name="SDR White Level" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "SDR White Level"
+value = "0.0"
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+layout_mode = 2
 
 [node name="SceneSwitcher" type="VBoxContainer" parent="."]
 layout_mode = 2
