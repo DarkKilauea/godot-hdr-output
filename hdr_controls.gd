@@ -34,11 +34,11 @@ func _ready() -> void:
 
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
-	DisplayServer.window_set_hdr_output_enabled(toggled_on);
+	DisplayServer.window_set_hdr_output_enabled(toggled_on, false);
 
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
-	DisplayServer.window_set_hdr_output_reference_luminance(value);
+	DisplayServer.window_set_hdr_output_luminance(0.0, 1000.0, value);
 
 
 func _on_scene_choice_item_selected(index: int) -> void:
