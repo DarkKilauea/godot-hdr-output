@@ -59,14 +59,36 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Enable HDR"
 
-[node name="RefLuminanceSlider" parent="." instance=ExtResource("1_usl2s")]
+[node name="HighPrecisionBuffers" type="CheckButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "High Precision Buffers"
+
+[node name="ReferenceLuminanceSlider" parent="." instance=ExtResource("1_usl2s")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 2000.0
 step = 0.0
 title = "Reference Luminance"
-value = 200.0
+value = 80.0
+
+[node name="MinLuminanceSlider" parent="." instance=ExtResource("1_usl2s")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2000.0
+step = 0.0
+title = "Minimum Luminance"
+
+[node name="MaxLuminanceSlider" parent="." instance=ExtResource("1_usl2s")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2000.0
+step = 0.0
+title = "Maximum Luminance"
 
 [connection signal="item_selected" from="SceneSwitcher/SceneChoice" to="." method="_on_scene_choice_item_selected"]
 [connection signal="toggled" from="EnableHDRButton" to="." method="_on_enable_hdr_button_toggled"]
-[connection signal="value_changed" from="RefLuminanceSlider" to="." method="_on_reference_luminance_slider_value_changed"]
+[connection signal="toggled" from="HighPrecisionBuffers" to="." method="_on_high_precision_buffers_toggled"]
+[connection signal="value_changed" from="ReferenceLuminanceSlider" to="." method="_on_reference_luminance_slider_value_changed"]
+[connection signal="value_changed" from="MinLuminanceSlider" to="." method="_on_min_luminance_slider_value_changed"]
+[connection signal="value_changed" from="MaxLuminanceSlider" to="." method="_on_max_luminance_slider_value_changed"]
