@@ -6,11 +6,10 @@ extends Control
 
 
 func _physics_process(delta: float) -> void:
-	var screen := get_window().current_screen;
 	var device := RenderingServer.get_rendering_device();
 	
-	var format := device.screen_get_color_format(screen);
-	var color_space := device.screen_get_color_space(screen);
+	var format := device.screen_get_color_format();
+	var color_space := device.screen_get_color_space();
 	
 	match format:
 		RenderingDevice.DataFormat.DATA_FORMAT_B8G8R8A8_UNORM: 
