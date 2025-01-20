@@ -5,7 +5,7 @@ extends Control
 @onready var _color_space_info: InfoLabel = %ColorSpaceInfo
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var device := RenderingServer.get_rendering_device();
 	
 	var format := device.screen_get_color_format();

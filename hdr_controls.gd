@@ -16,18 +16,31 @@ extends Control
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
 
 
-func _ready() -> void:
-	_screen_hdr_available.value = str(DisplayServer.screen_is_hdr_supported());
-	_screen_min_luminance.value = "%.2f" % DisplayServer.screen_get_min_luminance();
-	_screen_max_luminance.value = "%.2f" % DisplayServer.screen_get_max_luminance();
-	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_average_luminance();
-	_screen_sdr_white_level.value = "%.2f" % DisplayServer.screen_get_sdr_white_level();
+func _is_hdr_supported(screen: int) -> bool:
+	return DisplayServer.has_feature(DisplayServer.FEATURE_HDR) \
+		&& RenderingServer.get_rendering_device().has_feature(RenderingDevice.SUPPORTS_HDR_OUTPUT) \
+		&& DisplayServer.screen_is_hdr_supported(screen);
+
+
+func _update_screen_info():
+	var screen := get_window().current_screen;
 	
-	_enable_hdr_button.set_pressed_no_signal(DisplayServer.window_is_hdr_output_enabled());
-	_high_precision_buffers.set_pressed_no_signal(DisplayServer.window_is_hdr_output_preferring_high_precision());
-	_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_reference_luminance();
-	_min_luminance_slider.value = DisplayServer.window_get_hdr_output_min_luminance();
-	_max_luminance_slider.value = DisplayServer.window_get_hdr_output_max_luminance();
+	_screen_hdr_available.value = str(_is_hdr_supported(screen));
+	_screen_min_luminance.value = "%.2f" % DisplayServer.screen_get_min_luminance(screen);
+	_screen_max_luminance.value = "%.2f" % DisplayServer.screen_get_max_luminance(screen);
+	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_average_luminance(screen);
+	_screen_sdr_white_level.value = "%.2f" % DisplayServer.screen_get_sdr_white_level(screen);
+
+
+func _ready() -> void:
+	_update_screen_info();
+	
+	var window := get_window();
+	_enable_hdr_button.set_pressed_no_signal(window.hdr_output_enabled);
+	_high_precision_buffers.set_pressed_no_signal(window.hdr_output_prefer_high_precision);
+	_reference_luminance_slider.value = window.hdr_output_reference_luminance;
+	_min_luminance_slider.value = DisplayServer.screen_get_min_luminance();
+	_max_luminance_slider.value = DisplayServer.screen_get_max_luminance();
 	
 	# HACK: Need to set the step here in order to avoid the wrong step being used at runtime.
 	_reference_luminance_slider.step = 1.0;
@@ -45,25 +58,43 @@ func _ready() -> void:
 	_enable_hdr_button.grab_focus();
 
 
+func _physics_process(_delta: float) -> void:
+	_update_screen_info();
+	
+	# Check if we are asking for HDR output, but moved to a display that doesn't support it
+	if (_enable_hdr_button.button_pressed):
+		var window := get_window();
+		var screen := window.current_screen;
+		var hdr_supported := _is_hdr_supported(screen);
+		
+		# Make sure that we turn on/off HDR output based on the capability of the current screen.
+		if (hdr_supported && !window.hdr_output_enabled):
+			window.hdr_output_enabled = true;
+		elif (!hdr_supported && window.hdr_output_enabled):
+			window.hdr_output_enabled = false;
+
+
 func _on_scene_choice_item_selected(index: int) -> void:
 	SceneSwitcher.change_scene_to_index(index);
 
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
-	DisplayServer.window_set_hdr_output_enabled(toggled_on);
+	get_window().hdr_output_enabled = toggled_on;
 
 
 func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
-	DisplayServer.window_set_hdr_output_prefer_high_precision(toggled_on);
+	get_window().hdr_output_prefer_high_precision = toggled_on;
 
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
-	DisplayServer.window_set_hdr_output_reference_luminance(value);
+	get_window().hdr_output_reference_luminance = value;
 
 
-func _on_min_luminance_slider_value_changed(value: float) -> void:
-	DisplayServer.window_set_hdr_output_min_luminance(value);
+func _on_min_luminance_slider_value_changed(_value: float) -> void:
+	# TODO: Modify the tonemapper to keep luminance in range
+	pass;
 
 
-func _on_max_luminance_slider_value_changed(value: float) -> void:
-	DisplayServer.window_set_hdr_output_max_luminance(value);
+func _on_max_luminance_slider_value_changed(_value: float) -> void:
+	# TODO: Modify the tonemapper to keep luminance in range
+	pass;
