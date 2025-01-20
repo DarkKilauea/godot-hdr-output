@@ -16,8 +16,6 @@ background_mode = 2
 sky = SubResource("Sky_egiyw")
 tonemap_mode = 1
 tonemap_white = 0.5
-ssr_enabled = true
-ssao_enabled = true
 adjustment_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
@@ -45,12 +43,17 @@ environment = SubResource("Environment_0vgk1")
 [node name="Sponza" parent="." instance=ExtResource("1_0fob3")]
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 2
 generate_probes_subdiv = 3
 light_data = ExtResource("2_8rbkh")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.0113174, -0.00694551, 0.999912, 0, 0.999976, 0.00694595, -0.999936, 7.86102e-05, -0.0113171, 9, 1.5, -1)
 far = 128.0
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Camera3D"]
+size = Vector3(20, 20, 50)
+enable_shadows = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

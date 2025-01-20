@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3v7e33v5akt"
 path.s3tc="res://.godot/imported/12501374198249454378.jpg-99cbae27d711d108aa01e8e9447053fd.s3tc.ctex"
+path.etc2="res://.godot/imported/12501374198249454378.jpg-99cbae27d711d108aa01e8e9447053fd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://sponza/glTF/12501374198249454378.jpg"
-dest_files=["res://.godot/imported/12501374198249454378.jpg-99cbae27d711d108aa01e8e9447053fd.s3tc.ctex"]
+dest_files=["res://.godot/imported/12501374198249454378.jpg-99cbae27d711d108aa01e8e9447053fd.s3tc.ctex", "res://.godot/imported/12501374198249454378.jpg-99cbae27d711d108aa01e8e9447053fd.etc2.ctex"]
 
 [params]
 
