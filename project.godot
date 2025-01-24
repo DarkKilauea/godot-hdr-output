@@ -21,7 +21,11 @@ SceneSwitcher="*res://scene_switcher.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/hdr/enabled=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 
