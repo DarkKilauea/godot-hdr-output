@@ -1,7 +1,10 @@
 extends Control
 
 
-@onready var _screen_hdr_available: InfoLabel = %HDRAvailable
+@onready var _display_server_supports_hdr: InfoLabel = %DisplayServerSupportsHDR
+@onready var _render_device_supports_hdr: InfoLabel = %RenderDeviceSupportsHDR
+@onready var _screen_supports_hdr: InfoLabel = %ScreenSupportsHDR
+
 @onready var _screen_min_luminance: InfoLabel = %MinLuminance
 @onready var _screen_max_luminance: InfoLabel = %MaxLuminance
 @onready var _screen_max_full_luminance: InfoLabel = %MaxFullLuminance
@@ -25,7 +28,10 @@ func _is_hdr_supported(screen: int) -> bool:
 func _update_screen_info():
 	var screen := get_window().current_screen;
 	
-	_screen_hdr_available.value = str(_is_hdr_supported(screen));
+	_display_server_supports_hdr.value = str(DisplayServer.has_feature(DisplayServer.FEATURE_HDR));
+	_render_device_supports_hdr.value = str(RenderingServer.get_rendering_device().has_feature(RenderingDevice.SUPPORTS_HDR_OUTPUT));
+	_screen_supports_hdr.value = str(DisplayServer.screen_is_hdr_supported(screen));
+	
 	_screen_min_luminance.value = "%.2f" % DisplayServer.screen_get_min_luminance(screen);
 	_screen_max_luminance.value = "%.2f" % DisplayServer.screen_get_max_luminance(screen);
 	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_average_luminance(screen);
@@ -79,7 +85,15 @@ func _on_scene_choice_item_selected(index: int) -> void:
 
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
-	get_window().hdr_output_enabled = toggled_on;
+	var window := get_window();
+	var screen := window.current_screen;
+	var hdr_supported := _is_hdr_supported(screen);
+	
+	# Make sure that we turn on/off HDR output based on the capability of the current screen.
+	if (hdr_supported && toggled_on):
+		window.hdr_output_enabled = true;
+	else:
+		window.hdr_output_enabled = false;
 
 
 func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:

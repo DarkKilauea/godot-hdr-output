@@ -7,10 +7,22 @@
 [node name="HDRControls" type="VBoxContainer"]
 script = ExtResource("1_pfloc")
 
-[node name="HDRAvailable" parent="." instance=ExtResource("2_4kv2r")]
+[node name="DisplayServerSupportsHDR" parent="." instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
-title = "HDR Supported:"
+title = "Platform Supports HDR:"
+value = "false"
+
+[node name="RenderDeviceSupportsHDR" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Renderer Supports HDR:"
+value = "false"
+
+[node name="ScreenSupportsHDR" parent="." instance=ExtResource("2_4kv2r")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Screen Supports HDR:"
 value = "false"
 
 [node name="MinLuminance" parent="." instance=ExtResource("2_4kv2r")]
