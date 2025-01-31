@@ -19,32 +19,6 @@ extends Control
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
 
 
-var _world_environment: WorldEnvironment;
-
-
-func _get_world_environment() -> WorldEnvironment:
-	var candidates := get_tree().root.find_children("*", "WorldEnvironment", true, false);
-	if !candidates.is_empty():
-		return candidates[0] as WorldEnvironment;
-	
-	return null;
-
-
-func _update_world_environment() -> void:
-	if !_world_environment:
-		return;
-	
-	var sdr_level := _reference_luminance_slider.value;
-	var min_luminance := _min_luminance_slider.value;
-	var max_luminance := _max_luminance_slider.value;
-	
-	var min_value := maxf(min_luminance / maxf(sdr_level, 1.0), 0.0);
-	var max_value := maxf(max_luminance / maxf(sdr_level, 1.0), 0.0);
-	
-	_world_environment.environment.tonemap_min_value = min_value;
-	_world_environment.environment.tonemap_max_value = max_value;
-
-
 func _is_hdr_supported(screen: int) -> bool:
 	return DisplayServer.has_feature(DisplayServer.FEATURE_HDR) \
 		&& RenderingServer.get_rendering_device().has_feature(RenderingDevice.SUPPORTS_HDR_OUTPUT) \
@@ -65,15 +39,14 @@ func _update_screen_info() -> void:
 
 
 func _ready() -> void:
-	_world_environment = _get_world_environment();
 	_update_screen_info();
 	
 	var window := get_window();
 	_enable_hdr_button.set_pressed_no_signal(window.hdr_output_enabled);
 	_high_precision_buffers.set_pressed_no_signal(window.hdr_output_prefer_high_precision);
 	_reference_luminance_slider.value = window.hdr_output_reference_luminance;
-	_min_luminance_slider.value = DisplayServer.screen_get_min_luminance();
-	_max_luminance_slider.value = DisplayServer.screen_get_max_luminance();
+	_min_luminance_slider.value = window.hdr_output_min_luminance;
+	_max_luminance_slider.value = window.hdr_output_max_luminance;
 	
 	# HACK: Need to set the step here in order to avoid the wrong step being used at runtime.
 	_reference_luminance_slider.step = 1.0;
@@ -89,8 +62,6 @@ func _ready() -> void:
 	
 	# Initialize focus so gamepads and keyboard nav work
 	_enable_hdr_button.grab_focus();
-	
-	_update_world_environment();
 
 
 func _physics_process(_delta: float) -> void:
@@ -131,12 +102,11 @@ func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_reference_luminance = value;
-	_update_world_environment();
 
 
-func _on_min_luminance_slider_value_changed(_value: float) -> void:
-	_update_world_environment();
+func _on_min_luminance_slider_value_changed(value: float) -> void:
+	get_window().hdr_output_min_luminance = value;
 
 
-func _on_max_luminance_slider_value_changed(_value: float) -> void:
-	_update_world_environment();
+func _on_max_luminance_slider_value_changed(value: float) -> void:
+	get_window().hdr_output_max_luminance = value;
