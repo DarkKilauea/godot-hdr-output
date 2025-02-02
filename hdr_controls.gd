@@ -14,15 +14,10 @@ extends Control
 
 @onready var _enable_hdr_button: CheckButton = %EnableHDRButton
 @onready var _high_precision_buffers: CheckButton = %HighPrecisionBuffers
+@onready var _custom_luminance: CheckButton = %CustomLuminance
 @onready var _reference_luminance_slider: SliderControl = %ReferenceLuminanceSlider
 @onready var _min_luminance_slider: SliderControl = %MinLuminanceSlider
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
-
-
-func _is_hdr_supported(screen: int) -> bool:
-	return DisplayServer.has_feature(DisplayServer.FEATURE_HDR) \
-		&& RenderingServer.get_rendering_device().has_feature(RenderingDevice.SUPPORTS_HDR_OUTPUT) \
-		&& DisplayServer.screen_is_hdr_supported(screen);
 
 
 func _update_screen_info() -> void:
@@ -38,15 +33,26 @@ func _update_screen_info() -> void:
 	_screen_sdr_white_level.value = "%.2f" % DisplayServer.screen_get_sdr_white_level(screen);
 
 
+func _update_luminance_slider_visibility() -> void:
+	var custom_luminance_enabled: bool = _custom_luminance.button_pressed;
+	
+	_reference_luminance_slider.visible = custom_luminance_enabled;
+	_min_luminance_slider.visible = custom_luminance_enabled;
+	_max_luminance_slider.visible = custom_luminance_enabled;
+
+
 func _ready() -> void:
 	_update_screen_info();
 	
 	var window := get_window();
 	_enable_hdr_button.set_pressed_no_signal(window.hdr_output_enabled);
 	_high_precision_buffers.set_pressed_no_signal(window.hdr_output_prefer_high_precision);
+	_custom_luminance.set_pressed_no_signal(!window.hdr_output_use_screen_luminance);
 	_reference_luminance_slider.value = window.hdr_output_reference_luminance;
 	_min_luminance_slider.value = window.hdr_output_min_luminance;
 	_max_luminance_slider.value = window.hdr_output_max_luminance;
+	
+	_update_luminance_slider_visibility();
 	
 	# HACK: Need to set the step here in order to avoid the wrong step being used at runtime.
 	_reference_luminance_slider.step = 1.0;
@@ -66,18 +72,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	_update_screen_info();
-	
-	# Check if we are asking for HDR output, but moved to a display that doesn't support it
-	if (_enable_hdr_button.button_pressed):
-		var window := get_window();
-		var screen := window.current_screen;
-		var hdr_supported := _is_hdr_supported(screen);
-		
-		# Make sure that we turn on/off HDR output based on the capability of the current screen.
-		if (hdr_supported && !window.hdr_output_enabled):
-			window.hdr_output_enabled = true;
-		elif (!hdr_supported && window.hdr_output_enabled):
-			window.hdr_output_enabled = false;
 
 
 func _on_scene_choice_item_selected(index: int) -> void:
@@ -85,19 +79,16 @@ func _on_scene_choice_item_selected(index: int) -> void:
 
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
-	var window := get_window();
-	var screen := window.current_screen;
-	var hdr_supported := _is_hdr_supported(screen);
-	
-	# Make sure that we turn on/off HDR output based on the capability of the current screen.
-	if (hdr_supported && toggled_on):
-		window.hdr_output_enabled = true;
-	else:
-		window.hdr_output_enabled = false;
+	get_window().hdr_output_enabled = toggled_on;
 
 
 func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
 	get_window().hdr_output_prefer_high_precision = toggled_on;
+
+
+func _on_custom_luminance_toggled(toggled_on: bool) -> void:
+	get_window().hdr_output_use_screen_luminance = !toggled_on;
+	_update_luminance_slider_visibility();
 
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
