@@ -2,20 +2,22 @@
 
 importer="2d_array_texture"
 type="CompressedTexture2DArray"
-uid="uid://cm84hk4gltyuh"
-path="res://.godot/imported/main.exr-e15e6c193e24043a8a5230f8c0c5e47b.ctexarray"
+uid="uid://kgqariwg0t5j"
+path.bptc="res://.godot/imported/main.exr-e15e6c193e24043a8a5230f8c0c5e47b.bptc.ctexarray"
+path.astc="res://.godot/imported/main.exr-e15e6c193e24043a8a5230f8c0c5e47b.astc.ctexarray"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://main.exr"
-dest_files=["res://.godot/imported/main.exr-e15e6c193e24043a8a5230f8c0c5e47b.ctexarray"]
+dest_files=["res://.godot/imported/main.exr-e15e6c193e24043a8a5230f8c0c5e47b.bptc.ctexarray", "res://.godot/imported/main.exr-e15e6c193e24043a8a5230f8c0c5e47b.astc.ctexarray"]
 
 [params]
 
-compress/mode=3
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

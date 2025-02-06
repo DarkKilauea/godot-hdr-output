@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://imv8267ashna"]
+[gd_scene load_steps=11 format=3 uid="uid://imv8267ashna"]
 
 [ext_resource type="PackedScene" uid="uid://c5uq118s710yn" path="res://sponza/glTF/Sponza.gltf" id="1_0fob3"]
-[ext_resource type="LightmapGIData" uid="uid://dg1t5nmyp1k82" path="res://main.lmbake" id="2_8rbkh"]
+[ext_resource type="LightmapGIData" uid="uid://b1g3xkrnsnn62" path="res://main.lmbake" id="2_8rbkh"]
 [ext_resource type="Script" uid="uid://bv2vy7fy1p4xs" path="res://hud.gd" id="3_5pqer"]
 [ext_resource type="PackedScene" uid="uid://gywmqtpy1jlq" path="res://slider_control.tscn" id="4_gln4f"]
 [ext_resource type="PackedScene" uid="uid://b1nlow5nchqav" path="res://hdr_controls.tscn" id="4_r4cwe"]
@@ -14,10 +14,13 @@ sky_material = SubResource("PhysicalSkyMaterial_lquwl")
 [sub_resource type="Environment" id="Environment_0vgk1"]
 background_mode = 2
 sky = SubResource("Sky_egiyw")
-tonemap_mode = 2
+tonemap_mode = 3
 tonemap_white = 6.0
 glow_enabled = true
 adjustment_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lquwl"]
+auto_exposure_min_sensitivity = 100.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 content_margin_left = 8.0
@@ -37,17 +40,18 @@ transform = Transform3D(-0.866025, -0.498097, 0.0435779, 0, 0.0871558, 0.996195,
 light_energy = 6.0
 light_angular_distance = 0.5
 shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 32.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 unique_name_in_owner = true
 environment = SubResource("Environment_0vgk1")
-
-[node name="Sponza" parent="." instance=ExtResource("1_0fob3")]
+camera_attributes = SubResource("CameraAttributesPractical_lquwl")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
-quality = 2
-generate_probes_subdiv = 3
 light_data = ExtResource("2_8rbkh")
+
+[node name="Sponza" parent="." instance=ExtResource("1_0fob3")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.0113174, -0.00694551, 0.999912, 0, 0.999976, 0.00694595, -0.999936, 7.86102e-05, -0.0113171, 9, 1.5, -1)
