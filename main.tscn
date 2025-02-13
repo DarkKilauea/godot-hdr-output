@@ -20,7 +20,6 @@ glow_enabled = true
 adjustment_enabled = true
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lquwl"]
-auto_exposure_min_sensitivity = 100.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 content_margin_left = 8.0

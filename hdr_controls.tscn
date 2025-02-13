@@ -76,6 +76,24 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "High Precision Buffers"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "HDR Tonemap Mode"
+
+[node name="HDRTonemapChoice" type="OptionButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Linear"
+popup/item_1/id = 1
+popup/item_2/text = "SquishExpand"
+popup/item_2/id = 2
+
 [node name="CustomLuminance" type="CheckButton" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
@@ -106,6 +124,7 @@ title = "Maximum Luminance"
 [connection signal="item_selected" from="SceneSwitcher/SceneChoice" to="." method="_on_scene_choice_item_selected"]
 [connection signal="toggled" from="EnableHDRButton" to="." method="_on_enable_hdr_button_toggled"]
 [connection signal="toggled" from="HighPrecisionBuffers" to="." method="_on_high_precision_buffers_toggled"]
+[connection signal="item_selected" from="VBoxContainer/HDRTonemapChoice" to="." method="_on_hdr_tonemap_choice_item_selected"]
 [connection signal="toggled" from="CustomLuminance" to="." method="_on_custom_luminance_toggled"]
 [connection signal="value_changed" from="ReferenceLuminanceSlider" to="." method="_on_reference_luminance_slider_value_changed"]
 [connection signal="value_changed" from="MinLuminanceSlider" to="." method="_on_min_luminance_slider_value_changed"]

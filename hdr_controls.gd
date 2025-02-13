@@ -14,6 +14,7 @@ extends Control
 
 @onready var _enable_hdr_button: CheckButton = %EnableHDRButton
 @onready var _high_precision_buffers: CheckButton = %HighPrecisionBuffers
+@onready var _hdr_tonemap_choice: OptionButton = %HDRTonemapChoice
 @onready var _custom_luminance: CheckButton = %CustomLuminance
 @onready var _reference_luminance_slider: SliderControl = %ReferenceLuminanceSlider
 @onready var _min_luminance_slider: SliderControl = %MinLuminanceSlider
@@ -59,6 +60,8 @@ func _ready() -> void:
 	_min_luminance_slider.step = 1.0;
 	_max_luminance_slider.step = 1.0;
 	
+	_hdr_tonemap_choice.selected = window.tonemap_to_window;
+	
 	# Populate scene menu
 	for i in range(SceneSwitcher.scene_count()):
 		_scene_choice.add_item(SceneSwitcher.name_for_index(i), i);
@@ -101,3 +104,7 @@ func _on_min_luminance_slider_value_changed(value: float) -> void:
 
 func _on_max_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_max_luminance = value;
+
+
+func _on_hdr_tonemap_choice_item_selected(index: int) -> void:
+	get_window().tonemap_to_window = index;
