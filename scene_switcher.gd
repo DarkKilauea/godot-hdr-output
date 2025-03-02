@@ -3,13 +3,16 @@ extends Node
 
 var main_scene: PackedScene = preload("res://main.tscn");
 var hdr_tester_scene: PackedScene = preload("res://hdr_tester.tscn");
+var hdr_image_tester_scene: PackedScene = preload("res://hdr_image_tester.tscn");
 
 var scenes := [
 	hdr_tester_scene,
+	hdr_image_tester_scene,
 	main_scene
 ];
 var scene_names := [
 	"HDR Tester",
+	"HDR Image",
 	"Sponza"
 ];
 

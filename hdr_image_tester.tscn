@@ -1,0 +1,133 @@
+[gd_scene load_steps=6 format=3 uid="uid://dovo6o0ls6xui"]
+
+[ext_resource type="Script" uid="uid://b6oms5i2karop" path="res://hdr_image_tester.gd" id="1_sewco"]
+[ext_resource type="PackedScene" uid="uid://b1nlow5nchqav" path="res://hdr_controls.tscn" id="2_yr5is"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sewco"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_yr5is"]
+background_mode = 3
+tonemap_mode = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yr5is"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.145098, 0.145098, 0.145098, 0.501961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HDRImageTester" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sewco")
+script = ExtResource("1_sewco")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="OpenFileButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Open File..."
+
+[node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Clear"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RawViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer/RawViewportContainer"]
+handle_input_locally = false
+use_hdr_2d = true
+size = Vector2i(505, 669)
+render_target_update_mode = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/RawViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RawTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/RawViewportContainer/SubViewport/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 3
+
+[node name="TonemapViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer/TonemapViewportContainer"]
+own_world_3d = true
+handle_input_locally = false
+use_hdr_2d = true
+tonemap_to_window = true
+size = Vector2i(505, 669)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VBoxContainer/HBoxContainer/TonemapViewportContainer/SubViewport"]
+unique_name_in_owner = true
+environment = SubResource("Environment_yr5is")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/TonemapViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TonemappedTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/TonemapViewportContainer/SubViewport/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_yr5is")
+
+[node name="HDRControls" parent="VBoxContainer/HBoxContainer/PanelContainer" instance=ExtResource("2_yr5is")]
+layout_mode = 2
+
+[node name="OpenFileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.exr,*.hdr")
+use_native_dialog = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/OpenFileButton" to="." method="_on_open_file_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="file_selected" from="OpenFileDialog" to="." method="_on_file_dialog_file_selected"]
