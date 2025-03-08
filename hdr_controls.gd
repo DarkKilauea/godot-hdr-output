@@ -29,7 +29,7 @@ func _update_screen_info() -> void:
 	
 	_screen_min_luminance.value = "%.2f" % DisplayServer.screen_get_min_luminance(screen);
 	_screen_max_luminance.value = "%.2f" % DisplayServer.screen_get_max_luminance(screen);
-	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_average_luminance(screen);
+	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_full_frame_luminance(screen);
 	_screen_sdr_white_level.value = "%.2f" % DisplayServer.screen_get_sdr_white_level(screen);
 
 
