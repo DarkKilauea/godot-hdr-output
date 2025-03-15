@@ -16,7 +16,6 @@ extends Control
 @onready var _high_precision_buffers: CheckButton = %HighPrecisionBuffers
 @onready var _custom_luminance: CheckButton = %CustomLuminance
 @onready var _reference_luminance_slider: SliderControl = %ReferenceLuminanceSlider
-@onready var _min_luminance_slider: SliderControl = %MinLuminanceSlider
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
 
 
@@ -37,7 +36,6 @@ func _update_luminance_slider_visibility() -> void:
 	var custom_luminance_enabled: bool = _custom_luminance.button_pressed;
 	
 	_reference_luminance_slider.visible = custom_luminance_enabled;
-	_min_luminance_slider.visible = custom_luminance_enabled;
 	_max_luminance_slider.visible = custom_luminance_enabled;
 
 
@@ -49,14 +47,12 @@ func _ready() -> void:
 	_high_precision_buffers.set_pressed_no_signal(window.hdr_output_prefer_high_precision);
 	_custom_luminance.set_pressed_no_signal(!window.hdr_output_use_screen_luminance);
 	_reference_luminance_slider.value = window.hdr_output_reference_luminance;
-	_min_luminance_slider.value = window.hdr_output_min_luminance;
 	_max_luminance_slider.value = window.hdr_output_max_luminance;
 	
 	_update_luminance_slider_visibility();
 	
 	# HACK: Need to set the step here in order to avoid the wrong step being used at runtime.
 	_reference_luminance_slider.step = 1.0;
-	_min_luminance_slider.step = 1.0;
 	_max_luminance_slider.step = 1.0;
 	
 	# Populate scene menu
@@ -93,10 +89,6 @@ func _on_custom_luminance_toggled(toggled_on: bool) -> void:
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_reference_luminance = value;
-
-
-func _on_min_luminance_slider_value_changed(value: float) -> void:
-	get_window().hdr_output_min_luminance = value;
 
 
 func _on_max_luminance_slider_value_changed(value: float) -> void:
