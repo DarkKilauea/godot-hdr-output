@@ -14,7 +14,7 @@ sky_material = SubResource("PhysicalSkyMaterial_lquwl")
 [sub_resource type="Environment" id="Environment_0vgk1"]
 background_mode = 2
 sky = SubResource("Sky_egiyw")
-tonemap_mode = 3
+tonemap_mode = 1
 tonemap_white = 6.0
 glow_enabled = true
 adjustment_enabled = true

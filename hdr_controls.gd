@@ -14,8 +14,9 @@ extends Control
 
 @onready var _enable_hdr_button: CheckButton = %EnableHDRButton
 @onready var _high_precision_buffers: CheckButton = %HighPrecisionBuffers
-@onready var _custom_luminance: CheckButton = %CustomLuminance
+@onready var _custom_reference_luminance: CheckButton = %CustomReferenceLuminance
 @onready var _reference_luminance_slider: SliderControl = %ReferenceLuminanceSlider
+@onready var _custom_max_luminance: CheckButton = %CustomMaxLuminance
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
 
 
@@ -33,10 +34,11 @@ func _update_screen_info() -> void:
 
 
 func _update_luminance_slider_visibility() -> void:
-	var custom_luminance_enabled: bool = _custom_luminance.button_pressed;
+	var custom_reference_luminance_enabled: bool = _custom_reference_luminance.button_pressed;
+	var custom_max_luminance_enabled: bool = _custom_max_luminance.button_pressed;
 	
-	_reference_luminance_slider.visible = custom_luminance_enabled;
-	_max_luminance_slider.visible = custom_luminance_enabled;
+	_reference_luminance_slider.visible = custom_reference_luminance_enabled;
+	_max_luminance_slider.visible = custom_max_luminance_enabled;
 
 
 func _ready() -> void:
@@ -45,8 +47,9 @@ func _ready() -> void:
 	var window := get_window();
 	_enable_hdr_button.set_pressed_no_signal(window.hdr_output_enabled);
 	_high_precision_buffers.set_pressed_no_signal(window.hdr_output_prefer_high_precision);
-	_custom_luminance.set_pressed_no_signal(!window.hdr_output_use_screen_luminance);
+	_custom_reference_luminance.set_pressed_no_signal(!window.hdr_output_auto_adjust_reference_luminance);
 	_reference_luminance_slider.value = window.hdr_output_reference_luminance;
+	_custom_max_luminance.set_pressed_no_signal(!window.hdr_output_auto_adjust_max_luminance);
 	_max_luminance_slider.value = window.hdr_output_max_luminance;
 	
 	_update_luminance_slider_visibility();
@@ -82,14 +85,21 @@ func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
 	get_window().hdr_output_prefer_high_precision = toggled_on;
 
 
-func _on_custom_luminance_toggled(toggled_on: bool) -> void:
-	get_window().hdr_output_use_screen_luminance = !toggled_on;
-	_update_luminance_slider_visibility();
-
-
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_reference_luminance = value;
 
 
 func _on_max_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_max_luminance = value;
+
+
+func _on_custom_reference_luminance_toggled(toggled_on: bool) -> void:
+	get_window().hdr_output_auto_adjust_reference_luminance = !toggled_on;
+	_reference_luminance_slider.value = get_window().hdr_output_reference_luminance;
+	_update_luminance_slider_visibility();
+
+
+func _on_custom_max_luminance_toggled(toggled_on: bool) -> void:
+	get_window().hdr_output_auto_adjust_max_luminance = !toggled_on;
+	_max_luminance_slider.value = get_window().hdr_output_max_luminance;
+	_update_luminance_slider_visibility();
