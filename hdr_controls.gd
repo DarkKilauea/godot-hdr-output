@@ -18,6 +18,7 @@ extends Control
 @onready var _reference_luminance_slider: SliderControl = %ReferenceLuminanceSlider
 @onready var _custom_max_luminance: CheckButton = %CustomMaxLuminance
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
+@onready var _max_value: InfoLabel = %MaxValue
 
 
 func _update_screen_info() -> void:
@@ -41,6 +42,9 @@ func _update_luminance_slider_visibility() -> void:
 	_max_luminance_slider.visible = custom_max_luminance_enabled;
 
 
+func _update_max_value() -> void:
+	_max_value.value = "%.2f" % get_window().get_hdr_output_max_value();
+
 func _ready() -> void:
 	_update_screen_info();
 	
@@ -52,6 +56,7 @@ func _ready() -> void:
 	_custom_max_luminance.set_pressed_no_signal(!window.hdr_output_auto_adjust_max_luminance);
 	_max_luminance_slider.value = window.hdr_output_max_luminance;
 	
+	_update_max_value();
 	_update_luminance_slider_visibility();
 	
 	# HACK: Need to set the step here in order to avoid the wrong step being used at runtime.
@@ -79,6 +84,7 @@ func _on_scene_choice_item_selected(index: int) -> void:
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
 	get_window().hdr_output_enabled = toggled_on;
+	_update_max_value();
 
 
 func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
@@ -87,19 +93,25 @@ func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_reference_luminance = value;
+	_update_max_value();
 
 
 func _on_max_luminance_slider_value_changed(value: float) -> void:
 	get_window().hdr_output_max_luminance = value;
+	_update_max_value();
 
 
 func _on_custom_reference_luminance_toggled(toggled_on: bool) -> void:
 	get_window().hdr_output_auto_adjust_reference_luminance = !toggled_on;
 	_reference_luminance_slider.value = get_window().hdr_output_reference_luminance;
+	
+	_update_max_value();
 	_update_luminance_slider_visibility();
 
 
 func _on_custom_max_luminance_toggled(toggled_on: bool) -> void:
 	get_window().hdr_output_auto_adjust_max_luminance = !toggled_on;
 	_max_luminance_slider.value = get_window().hdr_output_max_luminance;
+	
+	_update_max_value();
 	_update_luminance_slider_visibility();
