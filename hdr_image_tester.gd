@@ -85,7 +85,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 
 
 func _on_tonemap_mode_button_item_selected(index: int) -> void:
-	_world_environment.environment.tonemap_mode = index;
+	_world_environment.environment.tonemap_mode = index as Environment.ToneMapper;
 
 
 func _on_exposure_slider_value_changed(value: float) -> void:

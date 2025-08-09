@@ -26,11 +26,11 @@ func _physics_process(_delta: float) -> void:
 			_format_info.value = "UNKNOWN";
 	
 	match color_space:
-		RenderingDevice.ColorSpace.COLOR_SPACE_SRGB_LINEAR:
-			_color_space_info.value = "COLOR_SPACE_SRGB_LINEAR";
-		RenderingDevice.ColorSpace.COLOR_SPACE_SRGB_NONLINEAR:
-			_color_space_info.value = "COLOR_SPACE_SRGB_NONLINEAR";
-		RenderingDevice.ColorSpace.COLOR_SPACE_HDR10_ST2084:
-			_color_space_info.value = "COLOR_SPACE_HDR10_ST2084";
+		RenderingDevice.ColorSpace.COLOR_SPACE_REC709_LINEAR:
+			_color_space_info.value = "COLOR_SPACE_REC709_LINEAR";
+		RenderingDevice.ColorSpace.COLOR_SPACE_REC709_NONLINEAR_SRGB:
+			_color_space_info.value = "COLOR_SPACE_REC709_NONLINEAR_SRGB";
+		RenderingDevice.ColorSpace.COLOR_SPACE_REC2020_NONLINEAR_ST2084:
+			_color_space_info.value = "COLOR_SPACE_REC2020_NONLINEAR_ST2084";
 		_:
 			_color_space_info.value = "UNKNOWN";
