@@ -5,10 +5,10 @@ extends Control
 @onready var _render_device_supports_hdr: InfoLabel = %RenderDeviceSupportsHDR
 @onready var _screen_supports_hdr: InfoLabel = %ScreenSupportsHDR
 
-@onready var _screen_min_luminance: InfoLabel = %MinLuminance
-@onready var _screen_max_luminance: InfoLabel = %MaxLuminance
-@onready var _screen_max_full_luminance: InfoLabel = %MaxFullLuminance
-@onready var _screen_sdr_white_level: InfoLabel = %"SDR White Level"
+@onready var _screen_min_luminance: InfoLabel = %ScreenMinLuminance
+@onready var _screen_max_luminance: InfoLabel = %ScreenMaxLuminance
+@onready var _screen_max_full_luminance: InfoLabel = %ScreenMaxFullLuminance
+@onready var _screen_reference_luminance: InfoLabel = %ScreenReferenceLuminance
 
 @onready var _scene_choice: OptionButton = %SceneChoice
 
@@ -31,7 +31,7 @@ func _update_screen_info() -> void:
 	_screen_min_luminance.value = "%.2f" % DisplayServer.screen_get_min_luminance(screen);
 	_screen_max_luminance.value = "%.2f" % DisplayServer.screen_get_max_luminance(screen);
 	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_full_frame_luminance(screen);
-	_screen_sdr_white_level.value = "%.2f" % DisplayServer.screen_get_sdr_white_level(screen);
+	_screen_reference_luminance.value = "%.2f" % DisplayServer.screen_get_reference_luminance(screen);
 
 
 func _update_luminance_slider_visibility() -> void:
@@ -43,7 +43,7 @@ func _update_luminance_slider_visibility() -> void:
 
 
 func _update_max_value() -> void:
-	_max_value.value = "%.2f" % get_window().get_hdr_output_max_value();
+	_max_value.value = "%.2f" % get_window().get_output_max_value();
 
 func _ready() -> void:
 	_update_screen_info();
