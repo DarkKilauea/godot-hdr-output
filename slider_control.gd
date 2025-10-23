@@ -78,19 +78,25 @@ var _max_value: float;
 var _step: float;
 var _title: String;
 var _value: float;
+var _initializing: bool;
 
 
 func _ready() -> void:
+	_initializing = true;
+	
 	title_label.text = _title;
 	value_label.text = "%.2f" % _value;
-	value_slider.set_value_no_signal(_value);
+	value_slider.value = _value;
 	value_slider.max_value = _max_value;
 	value_slider.min_value = _min_value;
 	value_slider.step = _step;
+	
+	_initializing = false;
 
 
 func _on_value_slider_value_changed(v: float) -> void:
 	_value = v;
 	value_label.text = "%.2f" % v;
 	
-	value_changed.emit(v);
+	if !_initializing:
+		value_changed.emit(v);
