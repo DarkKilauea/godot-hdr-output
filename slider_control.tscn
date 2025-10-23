@@ -2,27 +2,29 @@
 
 [ext_resource type="Script" uid="uid://b42i1dnpykw5l" path="res://slider_control.gd" id="1_yy5xk"]
 
-[node name="SliderControl" type="VBoxContainer"]
+[node name="SliderControl" type="VBoxContainer" unique_id=1387159879]
 offset_right = 206.0
 offset_bottom = 43.0
 size_flags_vertical = 4
 script = ExtResource("1_yy5xk")
+step = 0.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=413600296]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="TitleLabel" type="Label" parent="HBoxContainer"]
+[node name="TitleLabel" type="Label" parent="HBoxContainer" unique_id=865963870]
 layout_mode = 2
-text = "Title"
 
-[node name="ValueLabel" type="Label" parent="HBoxContainer"]
+[node name="ValueLabel" type="Label" parent="HBoxContainer" unique_id=379374954]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.00"
 horizontal_alignment = 2
 
-[node name="ValueSlider" type="HSlider" parent="."]
+[node name="ValueSlider" type="HSlider" parent="." unique_id=247333870]
 layout_mode = 2
+max_value = 0.0
+step = 0.0
 
 [connection signal="value_changed" from="ValueSlider" to="." method="_on_value_slider_value_changed"]

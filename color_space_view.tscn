@@ -28,7 +28,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_av8mp"]
 shader = SubResource("Shader_gkq1x")
 
-[node name="ColorSpaceView" type="Control"]
+[node name="ColorSpaceView" type="Control" unique_id=1201176943]
 material = SubResource("ShaderMaterial_av8mp")
 layout_mode = 3
 anchors_preset = 0

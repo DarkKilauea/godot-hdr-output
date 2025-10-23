@@ -2,17 +2,15 @@
 
 [ext_resource type="Script" uid="uid://5oojnp8lr36l" path="res://info_label.gd" id="1_gme1s"]
 
-[node name="InfoLabel" type="HBoxContainer"]
+[node name="InfoLabel" type="HBoxContainer" unique_id=661270153]
 script = ExtResource("1_gme1s")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=467842066]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Title:"
 
-[node name="ValueLabel" type="Label" parent="."]
+[node name="ValueLabel" type="Label" parent="." unique_id=298613467]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "thing"
 horizontal_alignment = 2

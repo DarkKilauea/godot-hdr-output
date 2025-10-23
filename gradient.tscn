@@ -15,7 +15,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2aujw"]
 shader = SubResource("Shader_sx002")
 
-[node name="Gradient" type="Control"]
+[node name="Gradient" type="Control" unique_id=1804091349]
 material = SubResource("ShaderMaterial_2aujw")
 layout_mode = 3
 anchors_preset = 15

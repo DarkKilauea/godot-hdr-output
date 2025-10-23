@@ -52,7 +52,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="HDRImageTester" type="PanelContainer"]
+[node name="HDRImageTester" type="PanelContainer" unique_id=1658347849]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -61,47 +61,47 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sewco")
 script = ExtResource("1_sewco")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1321168677]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1772826513]
 layout_mode = 2
 
-[node name="OpenFileButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="OpenFileButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1495229417]
 layout_mode = 2
 text = "Open File..."
 
-[node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="ClearButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1366629092]
 layout_mode = 2
 text = "Clear"
 
-[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=445124627]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1140336184]
 layout_mode = 2
 text = "Selected File:"
 
-[node name="SelectedFileLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="SelectedFileLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=980778851]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=102821070]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer2" unique_id=163711772]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_kq64g")
 
-[node name="NoFileSelectedLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer"]
+[node name="NoFileSelectedLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer" unique_id=983448637]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Open File to Compare"
 
-[node name="RawViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer"]
+[node name="RawViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer" unique_id=240155428]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -109,28 +109,28 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
 
-[node name="RawViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer2/PanelContainer/RawViewportContainer"]
+[node name="RawViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer2/PanelContainer/RawViewportContainer" unique_id=274050330]
 own_world_3d = true
 handle_input_locally = false
 use_hdr_2d = true
-size = Vector2i(1008, 711)
+size = Vector2i(2, 2)
 render_target_update_mode = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer/RawViewportContainer/RawViewport"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer/RawViewportContainer/RawViewport" unique_id=1108632071]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RawTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/PanelContainer/RawViewportContainer/RawViewport/ScrollContainer"]
+[node name="RawTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/PanelContainer/RawViewportContainer/RawViewport/ScrollContainer" unique_id=1115002933]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand_mode = 3
 
-[node name="TypeLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer"]
+[node name="TypeLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer" unique_id=2116027819]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -138,17 +138,17 @@ theme_override_colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_kdf2j")
 text = "Original"
 
-[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer2" unique_id=1153033131]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_hspat")
 
-[node name="NoFileSelectedLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer2"]
+[node name="NoFileSelectedLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer2" unique_id=1863811466]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Open File to Compare"
 
-[node name="TonemapViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer2"]
+[node name="TonemapViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer2" unique_id=919436297]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -156,34 +156,33 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
 
-[node name="TonemapViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer"]
+[node name="TonemapViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer" unique_id=1423540732]
 unique_name_in_owner = true
 own_world_3d = true
 handle_input_locally = false
 use_hdr_2d = true
-tonemap_to_window = true
-size = Vector2i(503, 711)
+size = Vector2i(2, 2)
 render_target_update_mode = 0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer/TonemapViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer/TonemapViewport" unique_id=1386980336]
 unique_name_in_owner = true
 environment = SubResource("Environment_yr5is")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer/TonemapViewport"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer/TonemapViewport" unique_id=261973550]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TonemappedTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer/TonemapViewport/ScrollContainer"]
+[node name="TonemappedTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/PanelContainer2/TonemapViewportContainer/TonemapViewport/ScrollContainer" unique_id=1547696399]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand_mode = 3
 
-[node name="TypeLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer2"]
+[node name="TypeLabel" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer2" unique_id=868839396]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -191,29 +190,29 @@ theme_override_colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_kdf2j")
 text = "Tonemapped"
 
-[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBoxContainer2" unique_id=1648877454]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_yr5is")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer3" unique_id=618065472]
 layout_mode = 2
 
-[node name="HDRControls" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" instance=ExtResource("2_yr5is")]
+[node name="HDRControls" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" unique_id=1743324043 instance=ExtResource("2_yr5is")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" unique_id=1687543577]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" unique_id=956980177]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer/VBoxContainer" unique_id=880566965]
 layout_mode = 2
 text = "Tonemap Mode"
 
-[node name="TonemapModeButton" type="OptionButton" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer/VBoxContainer"]
+[node name="TonemapModeButton" type="OptionButton" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer/VBoxContainer" unique_id=604940059]
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 5
@@ -228,7 +227,7 @@ popup/item_3/id = 3
 popup/item_4/text = "AgX"
 popup/item_4/id = 4
 
-[node name="ExposureSlider" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" instance=ExtResource("3_sewco")]
+[node name="ExposureSlider" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" unique_id=528831386 instance=ExtResource("3_sewco")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 16.0
@@ -236,7 +235,7 @@ step = 0.01
 title = "Exposure"
 value = 1.0
 
-[node name="WhitepointSlider" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" instance=ExtResource("3_sewco")]
+[node name="WhitepointSlider" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" unique_id=1712320712 instance=ExtResource("3_sewco")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 16.0
@@ -244,13 +243,13 @@ step = 0.01
 title = "White"
 value = 1.0
 
-[node name="TonemapToWindowButton" type="CheckButton" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer"]
+[node name="TonemapToWindowButton" type="CheckButton" parent="VBoxContainer/HBoxContainer2/PanelContainer3/VBoxContainer" unique_id=1919731215]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Use Window Range
 "
 
-[node name="OpenFileDialog" type="FileDialog" parent="."]
+[node name="OpenFileDialog" type="FileDialog" parent="." unique_id=31242625]
 unique_name_in_owner = true
 title = "Open a File"
 ok_button_text = "Open"
