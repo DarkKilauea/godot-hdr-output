@@ -3,35 +3,27 @@ extends Control
 
 @onready var _display_server_supports_hdr: InfoLabel = %DisplayServerSupportsHDR
 @onready var _render_device_supports_hdr: InfoLabel = %RenderDeviceSupportsHDR
-@onready var _screen_supports_hdr: InfoLabel = %ScreenSupportsHDR
-
-@onready var _screen_min_luminance: InfoLabel = %ScreenMinLuminance
-@onready var _screen_max_luminance: InfoLabel = %ScreenMaxLuminance
-@onready var _screen_max_full_luminance: InfoLabel = %ScreenMaxFullLuminance
-@onready var _screen_reference_luminance: InfoLabel = %ScreenReferenceLuminance
+@onready var _window_supports_hdr: InfoLabel = %WindowSupportsHDR
+@onready var _window_current_reference_luminance: InfoLabel = %WindowCurrentReferenceLuminance
+@onready var _window_current_max_luminance: InfoLabel = %WindowCurrentMaxLuminance
+@onready var _max_value: InfoLabel = %MaxValue
 
 @onready var _scene_choice: OptionButton = %SceneChoice
 
 @onready var _enable_hdr_button: CheckButton = %EnableHDRButton
-@onready var _high_precision_buffers: CheckButton = %HighPrecisionBuffers
 @onready var _custom_reference_luminance: CheckButton = %CustomReferenceLuminance
 @onready var _reference_luminance_slider: SliderControl = %ReferenceLuminanceSlider
 @onready var _custom_max_luminance: CheckButton = %CustomMaxLuminance
 @onready var _max_luminance_slider: SliderControl = %MaxLuminanceSlider
-@onready var _max_value: InfoLabel = %MaxValue
 
 
-func _update_screen_info() -> void:
-	var screen := get_window().current_screen;
-	
+func _update_hdr_info() -> void:
 	_display_server_supports_hdr.value = str(DisplayServer.has_feature(DisplayServer.FEATURE_HDR));
 	_render_device_supports_hdr.value = str(RenderingServer.get_rendering_device().has_feature(RenderingDevice.SUPPORTS_HDR_OUTPUT));
-	_screen_supports_hdr.value = str(DisplayServer.screen_is_hdr_supported(screen));
 	
-	_screen_min_luminance.value = "%.2f" % DisplayServer.screen_get_min_luminance(screen);
-	_screen_max_luminance.value = "%.2f" % DisplayServer.screen_get_max_luminance(screen);
-	_screen_max_full_luminance.value = "%.2f" % DisplayServer.screen_get_max_full_frame_luminance(screen);
-	_screen_reference_luminance.value = "%.2f" % DisplayServer.screen_get_reference_luminance(screen);
+	_window_supports_hdr.value = str(DisplayServer.window_is_hdr_output_supported());
+	_window_current_reference_luminance.value = "%.2f" % DisplayServer.window_get_hdr_output_current_reference_luminance();
+	_window_current_max_luminance.value = "%.2f" % DisplayServer.window_get_hdr_output_current_max_luminance();
 
 
 func _update_luminance_slider_visibility() -> void:
@@ -46,15 +38,13 @@ func _update_max_value() -> void:
 	_max_value.value = "%.2f" % get_window().get_output_max_value();
 
 func _ready() -> void:
-	_update_screen_info();
+	_update_hdr_info();
 	
-	var window := get_window();
-	_enable_hdr_button.set_pressed_no_signal(window.hdr_output_enabled);
-	_high_precision_buffers.set_pressed_no_signal(window.hdr_output_prefer_high_precision);
-	_custom_reference_luminance.set_pressed_no_signal(!window.hdr_output_auto_adjust_reference_luminance);
-	_reference_luminance_slider.value = window.hdr_output_reference_luminance;
-	_custom_max_luminance.set_pressed_no_signal(!window.hdr_output_auto_adjust_max_luminance);
-	_max_luminance_slider.value = window.hdr_output_max_luminance;
+	_enable_hdr_button.set_pressed_no_signal(DisplayServer.window_is_hdr_output_requested());
+	_custom_reference_luminance.set_pressed_no_signal(DisplayServer.window_get_hdr_output_reference_luminance() >= 0.0);
+	_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_reference_luminance();
+	_custom_max_luminance.set_pressed_no_signal(DisplayServer.window_get_hdr_output_max_luminance() >= 0.0);
+	_max_luminance_slider.value = DisplayServer.window_get_hdr_output_max_luminance();
 	
 	_update_max_value();
 	_update_luminance_slider_visibility();
@@ -75,7 +65,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	_update_screen_info();
+	_update_hdr_info();
 
 
 func _on_scene_choice_item_selected(index: int) -> void:
@@ -83,35 +73,37 @@ func _on_scene_choice_item_selected(index: int) -> void:
 
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
-	get_window().hdr_output_enabled = toggled_on;
+	get_window().hdr_output_requested = toggled_on;
 	_update_max_value();
 
 
-func _on_high_precision_buffers_toggled(toggled_on: bool) -> void:
-	get_window().hdr_output_prefer_high_precision = toggled_on;
-
-
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
-	get_window().hdr_output_reference_luminance = value;
+	DisplayServer.window_set_hdr_output_reference_luminance(value);
 	_update_max_value();
 
 
 func _on_max_luminance_slider_value_changed(value: float) -> void:
-	get_window().hdr_output_max_luminance = value;
+	DisplayServer.window_set_hdr_output_max_luminance(value);
 	_update_max_value();
 
 
 func _on_custom_reference_luminance_toggled(toggled_on: bool) -> void:
-	get_window().hdr_output_auto_adjust_reference_luminance = !toggled_on;
-	_reference_luminance_slider.value = get_window().hdr_output_reference_luminance;
+	if (toggled_on):
+		_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_current_reference_luminance();
+		DisplayServer.window_set_hdr_output_reference_luminance(_reference_luminance_slider.value);
+	else:
+		DisplayServer.window_set_hdr_output_reference_luminance(-1);
 	
 	_update_max_value();
 	_update_luminance_slider_visibility();
 
 
 func _on_custom_max_luminance_toggled(toggled_on: bool) -> void:
-	get_window().hdr_output_auto_adjust_max_luminance = !toggled_on;
-	_max_luminance_slider.value = get_window().hdr_output_max_luminance;
+	if (toggled_on):
+		_max_luminance_slider.value = DisplayServer.window_get_hdr_output_current_max_luminance();
+		DisplayServer.window_set_hdr_output_max_luminance(_max_luminance_slider.value);
+	else:
+		DisplayServer.window_set_hdr_output_max_luminance(-1);
 	
 	_update_max_value();
 	_update_luminance_slider_visibility();

@@ -4,84 +4,73 @@
 [ext_resource type="PackedScene" uid="uid://gywmqtpy1jlq" path="res://slider_control.tscn" id="1_usl2s"]
 [ext_resource type="PackedScene" uid="uid://defsoyqoq70rl" path="res://info_label.tscn" id="2_4kv2r"]
 
-[node name="HDRControls" type="VBoxContainer"]
+[node name="HDRControls" type="VBoxContainer" unique_id=1676624053]
 script = ExtResource("1_pfloc")
 
-[node name="DisplayServerSupportsHDR" parent="." instance=ExtResource("2_4kv2r")]
+[node name="DisplayServerSupportsHDR" parent="." unique_id=1082413964 instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
 title = "Platform Supports HDR:"
 value = "false"
 
-[node name="RenderDeviceSupportsHDR" parent="." instance=ExtResource("2_4kv2r")]
+[node name="RenderDeviceSupportsHDR" parent="." unique_id=605737869 instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
 title = "Renderer Supports HDR:"
 value = "false"
 
-[node name="ScreenSupportsHDR" parent="." instance=ExtResource("2_4kv2r")]
+[node name="WindowSupportsHDR" parent="." unique_id=1278071203 instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
-title = "Screen Supports HDR:"
+title = "Window Supports HDR:"
 value = "false"
 
-[node name="ScreenMinLuminance" parent="." instance=ExtResource("2_4kv2r")]
+[node name="WindowCurrentReferenceLuminance" parent="." unique_id=1436144768 instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
-title = "Screen Min Luminance"
+title = "Window Reference Luminance"
 value = "0.0"
 
-[node name="ScreenMaxLuminance" parent="." instance=ExtResource("2_4kv2r")]
+[node name="WindowCurrentMaxLuminance" parent="." unique_id=2038258021 instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
-title = "Screen Max Luminance"
+title = "Window Max Luminance"
 value = "0.0"
 
-[node name="ScreenMaxFullLuminance" parent="." instance=ExtResource("2_4kv2r")]
+[node name="MaxValue" parent="." unique_id=1570990489 instance=ExtResource("2_4kv2r")]
 unique_name_in_owner = true
 layout_mode = 2
-title = "Screen Max Full Luminance"
+title = "Max Value (Headroom)"
 value = "0.0"
 
-[node name="ScreenReferenceLuminance" parent="." instance=ExtResource("2_4kv2r")]
-unique_name_in_owner = true
-layout_mode = 2
-title = "Screen Reference Luminance"
-value = "0.0"
-
-[node name="HSeparator2" type="HSeparator" parent="."]
+[node name="HSeparator2" type="HSeparator" parent="." unique_id=1331433767]
 layout_mode = 2
 
-[node name="SceneSwitcher" type="VBoxContainer" parent="."]
+[node name="SceneSwitcher" type="VBoxContainer" parent="." unique_id=1730316558]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SceneSwitcher"]
+[node name="Label" type="Label" parent="SceneSwitcher" unique_id=205803799]
 layout_mode = 2
 text = "Scene"
 
-[node name="SceneChoice" type="OptionButton" parent="SceneSwitcher"]
+[node name="SceneChoice" type="OptionButton" parent="SceneSwitcher" unique_id=377202875]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="." unique_id=329053629]
 layout_mode = 2
 
-[node name="EnableHDRButton" type="CheckButton" parent="."]
+[node name="EnableHDRButton" type="CheckButton" parent="." unique_id=651329924]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Enable HDR"
 
-[node name="HighPrecisionBuffers" type="CheckButton" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
-text = "High Precision Buffers"
-
-[node name="CustomReferenceLuminance" type="CheckButton" parent="."]
+[node name="CustomReferenceLuminance" type="CheckButton" parent="." unique_id=800783132]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Custom Reference Luminance"
 
-[node name="ReferenceLuminanceSlider" parent="." instance=ExtResource("1_usl2s")]
+[node name="ReferenceLuminanceSlider" parent="." unique_id=947948276 instance=ExtResource("1_usl2s")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 2000.0
@@ -89,27 +78,20 @@ step = 0.0
 title = "Reference Luminance"
 value = 80.0
 
-[node name="CustomMaxLuminance" type="CheckButton" parent="."]
+[node name="CustomMaxLuminance" type="CheckButton" parent="." unique_id=1789901986]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Custom Max Luminance"
 
-[node name="MaxLuminanceSlider" parent="." instance=ExtResource("1_usl2s")]
+[node name="MaxLuminanceSlider" parent="." unique_id=1195191393 instance=ExtResource("1_usl2s")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 2000.0
 step = 0.0
 title = "Maximum Luminance"
 
-[node name="MaxValue" parent="." instance=ExtResource("2_4kv2r")]
-unique_name_in_owner = true
-layout_mode = 2
-title = "Max Value (Headroom)"
-value = "0.0"
-
 [connection signal="item_selected" from="SceneSwitcher/SceneChoice" to="." method="_on_scene_choice_item_selected"]
 [connection signal="toggled" from="EnableHDRButton" to="." method="_on_enable_hdr_button_toggled"]
-[connection signal="toggled" from="HighPrecisionBuffers" to="." method="_on_high_precision_buffers_toggled"]
 [connection signal="toggled" from="CustomReferenceLuminance" to="." method="_on_custom_reference_luminance_toggled"]
 [connection signal="value_changed" from="ReferenceLuminanceSlider" to="." method="_on_reference_luminance_slider_value_changed"]
 [connection signal="toggled" from="CustomMaxLuminance" to="." method="_on_custom_max_luminance_toggled"]
