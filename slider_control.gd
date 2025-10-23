@@ -83,10 +83,10 @@ var _value: float;
 func _ready() -> void:
 	title_label.text = _title;
 	value_label.text = "%.2f" % _value;
+	value_slider.set_value_no_signal(_value);
 	value_slider.max_value = _max_value;
 	value_slider.min_value = _min_value;
 	value_slider.step = _step;
-	value_slider.set_value_no_signal(_value);
 
 
 func _on_value_slider_value_changed(v: float) -> void:
