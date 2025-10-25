@@ -18,7 +18,7 @@ extends Control
 
 
 func _update_hdr_info() -> void:
-	_display_server_supports_hdr.value = str(DisplayServer.has_feature(DisplayServer.FEATURE_HDR));
+	_display_server_supports_hdr.value = str(DisplayServer.has_feature(DisplayServer.FEATURE_HDR_OUTPUT));
 	_render_device_supports_hdr.value = str(RenderingServer.get_rendering_device().has_feature(RenderingDevice.SUPPORTS_HDR_OUTPUT));
 	
 	_window_supports_hdr.value = str(DisplayServer.window_is_hdr_output_supported());
@@ -35,7 +35,7 @@ func _update_luminance_slider_visibility() -> void:
 
 
 func _update_max_value() -> void:
-	_max_value.value = "%.2f" % get_window().get_output_max_value();
+	_max_value.value = "%.2f" % get_window().get_output_max_linear_value();
 
 func _ready() -> void:
 	_update_hdr_info();
