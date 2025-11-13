@@ -26,6 +26,7 @@ window/size/viewport_height=720
 window/hdr/request_hdr_output=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+display_server/driver.linuxbsd="wayland"
 
 [input]
 
@@ -46,5 +47,6 @@ ui_cancel={
 
 [rendering]
 
+rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
 viewport/hdr_2d=true
