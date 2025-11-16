@@ -60,6 +60,7 @@ signal value_changed(value);
 			return;
 		
 		_value = v;
+		
 		if value_label:
 			value_label.text = "%.2f" % v;
 		if value_slider:
@@ -86,17 +87,19 @@ func _ready() -> void:
 	
 	title_label.text = _title;
 	value_label.text = "%.2f" % _value;
-	value_slider.value = _value;
+	
 	value_slider.max_value = _max_value;
 	value_slider.min_value = _min_value;
 	value_slider.step = _step;
+	value_slider.value = _value;
 	
 	_initializing = false;
 
 
 func _on_value_slider_value_changed(v: float) -> void:
+	if _initializing:
+		return;
+	
 	_value = v;
 	value_label.text = "%.2f" % v;
-	
-	if !_initializing:
-		value_changed.emit(v);
+	value_changed.emit(v);

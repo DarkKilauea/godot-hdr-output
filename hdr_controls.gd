@@ -24,6 +24,7 @@ func _update_hdr_info() -> void:
 	_window_supports_hdr.value = str(DisplayServer.window_is_hdr_output_supported());
 	_window_current_reference_luminance.value = "%.2f" % DisplayServer.window_get_hdr_output_current_reference_luminance();
 	_window_current_max_luminance.value = "%.2f" % DisplayServer.window_get_hdr_output_current_max_luminance();
+	_max_value.value = "%.2f" % get_window().get_output_max_linear_value();
 
 
 func _update_luminance_slider_visibility() -> void:
@@ -34,24 +35,15 @@ func _update_luminance_slider_visibility() -> void:
 	_max_luminance_slider.visible = custom_max_luminance_enabled;
 
 
-func _update_max_value() -> void:
-	_max_value.value = "%.2f" % get_window().get_output_max_linear_value();
-
 func _ready() -> void:
-	_update_hdr_info();
-	
 	_enable_hdr_button.set_pressed_no_signal(DisplayServer.window_is_hdr_output_requested());
 	_custom_reference_luminance.set_pressed_no_signal(DisplayServer.window_get_hdr_output_reference_luminance() >= 0.0);
-	_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_reference_luminance();
+	_reference_luminance_slider.value = DisplayServer.window_get_hdr_output_current_reference_luminance();
 	_custom_max_luminance.set_pressed_no_signal(DisplayServer.window_get_hdr_output_max_luminance() >= 0.0);
-	_max_luminance_slider.value = DisplayServer.window_get_hdr_output_max_luminance();
+	_max_luminance_slider.value = DisplayServer.window_get_hdr_output_current_max_luminance();
 	
-	_update_max_value();
+	_update_hdr_info();
 	_update_luminance_slider_visibility();
-	
-	# HACK: Need to set the step here in order to avoid the wrong step being used at runtime.
-	_reference_luminance_slider.step = 1.0;
-	_max_luminance_slider.step = 1.0;
 	
 	# Populate scene menu
 	for i in range(SceneSwitcher.scene_count()):
@@ -60,7 +52,7 @@ func _ready() -> void:
 	# Select the scene we are currently on
 	_scene_choice.selected = SceneSwitcher.index_for_current_scene();
 	
-	# Initialize focus so gamepads and keyboard nav work
+	# Initialize focus so gamepad and keyboard nav work
 	_enable_hdr_button.grab_focus();
 
 
@@ -74,17 +66,17 @@ func _on_scene_choice_item_selected(index: int) -> void:
 
 func _on_enable_hdr_button_toggled(toggled_on: bool) -> void:
 	get_window().hdr_output_requested = toggled_on;
-	_update_max_value();
+	_update_hdr_info();
 
 
 func _on_reference_luminance_slider_value_changed(value: float) -> void:
 	DisplayServer.window_set_hdr_output_reference_luminance(value);
-	_update_max_value();
+	_update_hdr_info();
 
 
 func _on_max_luminance_slider_value_changed(value: float) -> void:
 	DisplayServer.window_set_hdr_output_max_luminance(value);
-	_update_max_value();
+	_update_hdr_info();
 
 
 func _on_custom_reference_luminance_toggled(toggled_on: bool) -> void:
@@ -94,7 +86,7 @@ func _on_custom_reference_luminance_toggled(toggled_on: bool) -> void:
 	else:
 		DisplayServer.window_set_hdr_output_reference_luminance(-1);
 	
-	_update_max_value();
+	_update_hdr_info();
 	_update_luminance_slider_visibility();
 
 
@@ -105,5 +97,5 @@ func _on_custom_max_luminance_toggled(toggled_on: bool) -> void:
 	else:
 		DisplayServer.window_set_hdr_output_max_luminance(-1);
 	
-	_update_max_value();
+	_update_hdr_info();
 	_update_luminance_slider_visibility();
