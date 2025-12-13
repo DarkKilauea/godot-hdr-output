@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://imv8267ashna"]
+[gd_scene load_steps=15 format=3 uid="uid://imv8267ashna"]
 
 [ext_resource type="PackedScene" uid="uid://c5uq118s710yn" path="res://sponza/glTF/Sponza.gltf" id="1_0fob3"]
 [ext_resource type="LightmapGIData" uid="uid://b1g3xkrnsnn62" path="res://main.lmbake" id="2_8rbkh"]
@@ -42,11 +42,19 @@ material = SubResource("StandardMaterial3D_7mycd")
 radius = 0.25
 height = 0.5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_5vw27"]
+material = SubResource("StandardMaterial3D_272bh")
+
 [node name="Main" type="Node3D" unique_id=965308299]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1050252492]
 transform = Transform3D(-0.866025, -0.498097, 0.0435779, 0, 0.0871558, 0.996195, -0.5, 0.86273, -0.0754791, 0, 0, 0)
 light_energy = 6.0
+light_angular_distance = 0.5
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 32.0
@@ -120,6 +128,13 @@ value = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8892508, 1.1913242, -1.7722062)
 mesh = SubResource("SphereMesh_272bh")
 script = ExtResource("7_272bh")
+
+[node name="ShinyBall" type="MeshInstance3D" parent="." unique_id=1497693402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7681484, 1.073003, 0.9046664)
+mesh = SubResource("SphereMesh_5vw27")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="ShinyBall" unique_id=1017774037]
+enable_shadows = true
 
 [connection signal="value_changed" from="MarginContainer/HUD/VBoxContainer/BrightnessSliderControl" to="MarginContainer/HUD" method="_on_brightness_slider_control_value_changed"]
 [connection signal="value_changed" from="MarginContainer/HUD/VBoxContainer/ContrastSliderControl" to="MarginContainer/HUD" method="_on_contrast_slider_control_value_changed"]
